@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hydro Bank Careers</title>
+    <!-- Import Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Import FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Import Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Custom Tailwind Config for Fonts and Colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'poppins': ['Poppins', 'sans-serif']
+                    },
+                    colors: {
+                        'hydro-blue': '#00d4ff',
+                        'hydro-gold': '#f5b700',
+                        'text-gray': '#222222'
+                    }
+                }
+            }
+        };
+    </script>
+    <!-- Custom CSS for Additional Animations -->
+    <style>
+        body {
+            font-family: 'inter', sans-serif;
+        }
+        .hero-logo {
+            font-family: 'poppins', sans-serif;
+            letter-spacing: 0.1em;
+        }
+        .section {
+            transition: opacity 0.5s ease-in-out;
+            opacity: 0;
+            display: none;
+        }
+        .section.active {
+            opacity: 1;
+            display: block;
+        }
+        .job-card {
+            transition: all 0.3s ease;
+        }
+        .job-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.33);
+        }
+        .gradient-btn {
+            background: linear-gradient(90deg, #00d4ff, #f5b700);
+            transition: box-shadow 0.3s ease;
+        }
+        .gradient-btn:hover {
+            box-shadow: 0 0 10px #f5b700;
+        }
+        .faq-question {
+            transition: color 0.3s ease;
+        }
+        .faq-question:hover {
+            color: #00d4ff;
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0px); }
+        }
+        /* Drag and Drop Styles */
+        .drag-drop {
+            transition: all 0.3s ease;
+        }
+        .drag-drop.drag-over {
+            border-color: #00d4ff;
+            background-color: #f0fcff;
+        }
+    </style>
+</head>
+<body class="bg-white text-text-gray font-inter">
+    <body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="fixed top-0 inset-x-0 z-50 p-4">
+          {% for category, message in messages %}
+            <div class="mx-auto max-w-sm rounded-lg p-4 text-center font-semibold {% if category == 'error' %}bg-red-500 text-white{% else %}bg-green-500 text-white{% endif %}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+        
+</body>
+    <!-- Header -->
+    <header id="header" class="bg-white p-4 shadow-sm sticky top-0 z-10">
+        <nav class="flex justify-between items-center max-w-7xl mx-auto">
+            <div class="text-hydro-blue font-black text-2xl hero-logo cursor-pointer" onclick="showSection('home')">HYDRO BANK</div>
+            <ul class="flex space-x-8 text-lg font-semibold">
+                <li><a href="#" class="nav-link pb-1 hover:text-hydro-blue" data-section="home">Home</a></li>
+                <li><a href="#" class="nav-link pb-1 hover:text-hydro-blue" data-section="about">About</a></li>
+                <li><a href="#" class="nav-link pb-1 hover:text-hydro-blue" data-section="faq">FAQ</a></li>
+                <li><a href="#" class="nav-link pb-1 hover:text-hydro-blue" data-section="careers">Careers</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Sections -->
+    <!-- Home Section -->
+    <section id="home" class="section active p-8 max-w-7xl mx-auto">
+        <div class="text-center mb-12 fade-in">
+            <h1 class="text-hydro-blue font-black text-6xl hero-logo mb-4">HYDRO BANK</h1>
+            <h2 class="text-4xl font-semibold mb-8">Join the Future of Finance at Hydro Bank</h2>
+            <button class="gradient-btn text-black font-bold py-3 px-8 rounded-full" onclick="showSection('careers')">Apply Now</button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in">
+            <!-- Job Cards -->
+            <div class="job-card bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                <h3 class="text-hydro-blue font-bold text-xl mb-2">Frontend Developer</h3>
+                <p class="text-gray-600 mb-4">Build sleek, responsive user interfaces with React and modern JavaScript.</p>
+                <button class="gradient-btn text-sm py-2 px-4 rounded-full" onclick="showSection('careers')">Apply Now</button>
+                <div class="tooltip mt-2">
+                    <span class="text-hydro-blue cursor-pointer">Learn More</span>
+                    <span class="tooltiptext">Focus on UI/UX, mobile-first design, and integration with backend APIs. Ideal for creative minds.</span>
+                </div>
+            </div>
+            <div class="job-card bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                <h3 class="text-hydro-blue font-bold text-xl mb-2">Backend Developer</h3>
+                <p class="text-gray-600 mb-4">Develop robust APIs and services with Node.js and scalable databases.</p>
+                <button class="gradient-btn text-sm py-2 px-4 rounded-full" onclick="showSection('careers')">Apply Now</button>
+                <div class="tooltip mt-2">
+                    <span class="text-hydro-blue cursor-pointer">Learn More</span>
+                    <span class="tooltiptext">Emphasize security, performance, and microservices architecture for fintech solutions.</span>
+                </div>
+            </div>
+            <div class="job-card bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                <h3 class="text-hydro-blue font-bold text-xl mb-2">Blockchain Engineer</h3>
+                <p class="text-gray-600 mb-4">Design and implement blockchain infrastructure for secure transactions.</p>
+                <button class="gradient-btn text-sm py-2 px-4 rounded-full" onclick="showSection('careers')">Apply Now</button>
+                <div class="tooltip mt-2">
+                    <span class="text-hydro-blue cursor-pointer">Learn More</span>
+                    <span class="tooltiptext">Work on decentralized networks, consensus algorithms, and integration with finance systems.</span>
+                </div>
+            </div>
+            <div class="job-card bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                <h3 class="text-hydro-blue font-bold text-xl mb-2">Solidity Developer</h3>
+                <p class="text-gray-600 mb-4">Write secure smart contracts on Ethereum and other blockchains.</p>
+                <button class="gradient-btn text-sm py-2 px-4 rounded-full" onclick="showSection('careers')">Apply Now</button>
+                <div class="tooltip mt-2">
+                    <span class="text-hydro-blue cursor-pointer">Learn More</span>
+                    <span class="tooltiptext">Specialize in contract logic, security audits, and DeFi applications.</span>
+                </div>
+            </div>
+            <div class="job-card bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                <h3 class="text-hydro-blue font-bold text-xl mb-2">AI/ML Engineer</h3>
+                <p class="text-gray-600 mb-4">Create intelligent models to drive finance innovation with Python and TensorFlow.</p>
+                <button class="gradient-btn text-sm py-2 px-4 rounded-full" onclick="showSection('careers')">Apply Now</button>
+                <div class="tooltip mt-2">
+                    <span class="text-hydro-blue cursor-pointer">Learn More</span>
+                    <span class="tooltiptext">Leverage machine learning for risk assessment, predictive analytics, and automated decision-making.</span>
+                </div>
+            </div>
+            <div class="job-card bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                <h3 class="text-hydro-blue font-bold text-xl mb-2">Data Scientist</h3>
+                <p class="text-gray-600 mb-4">Analyze data to uncover actionable insights for strategic decisions.</p>
+                <button class="gradient-btn text-sm py-2 px-4 rounded-full" onclick="showSection('careers')">Apply Now</button>
+                <div class="tooltip mt-2">
+                    <span class="text-hydro-blue cursor-pointer">Learn More</span>
+                    <span class="tooltiptext">Use statistical models and big data tools to enhance financial services and user experience.</span>
+                </div>
+            </div>
+            <div class="job-card bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                <h3 class="text-hydro-blue font-bold text-xl mb-2">Data Analyst</h3>
+                <p class="text-gray-600 mb-4">Interpret complex datasets to support financial insights and operations.</p>
+                <button class="gradient-btn text-sm py-2 px-4 rounded-full" onclick="showSection('careers')">Apply Now</button>
+                <div class="tooltip mt-2">
+                    <span class="text-hydro-blue cursor-pointer">Learn More</span>
+                    <span class="tooltiptext">Focus on ETL processes, data visualization, and reporting for executive teams.</span>
+                </div>
+            </div>
+            <div class="job-card bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                <h3 class="text-hydro-blue font-bold text-xl mb-2">HR Manager</h3>
+                <p class="text-gray-600 mb-4">Manage talent acquisition, employee relations, and HR policies.</p>
+                <button class="gradient-btn text-sm py-2 px-4 rounded-full" onclick="showSection('careers')">Apply Now</button>
+                <div class="tooltip mt-2">
+                    <span class="text-hydro-blue cursor-pointer">Learn More</span>
+                    <span class="tooltiptext">Oversee recruitment, onboarding, and culture-building in a fast-paced fintech environment.</span>
+                </div>
+            </div>
+            <div class="job-card bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                <h3 class="text-hydro-blue font-bold text-xl mb-2">Marketing Specialist</h3>
+                <p class="text-gray-600 mb-4">Drive brand growth, customer engagement, and marketing campaigns.</p>
+                <button class="gradient-btn text-sm py-2 px-4 rounded-full" onclick="showSection('careers')">Apply Now</button>
+                <div class="tooltip mt-2">
+                    <span class="text-hydro-blue cursor-pointer">Learn More</span>
+                    <span class="tooltiptext">Develop digital strategies, content creation, and analytics for global reach.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section p-8 max-w-4xl mx-auto fade-in">
+        <h2 class="text-hydro-blue font-bold text-4xl mb-8 text-center">About Hydro Bank</h2>
+        <div class="mb-12">
+            <h3 class="text-2xl font-semibold mb-4">Vision</h3>
+            <p class="text-lg mb-6">To revolutionize finance by integrating cutting-edge blockchain and AI technologies, making banking seamless, secure, and accessible worldwide.</p>
+        </div>
+        <div class="mb-12">
+            <h3 class="text-2xl font-semibold mb-4">Mission</h3>
+            <p class="text-lg mb-6">Empower individuals and businesses with innovative financial solutions that leverage transparency, security, and intelligence.</p>
+        </div>
+        <div class="mb-12">
+            <h3 class="text-2xl font-semibold mb-4">Roadmap</h3>
+            <p class="text-lg mb-6">Q2 2024: Launch blockchain payment gateway. Q4 2024: AI-driven credit scoring. 2025: Global expansion and equity model rollout.</p>
+        </div>
+        <div class="mb-12">
+            <h3 class="text-2xl font-semibold mb-4">Values</h3>
+            <p class="text-lg mb-6">Integrity, Innovation, Customer Centricity, Security, Collaboration, and Sustainability.</p>
+        </div>
+        <div>
+            <h3 class="text-2xl font-semibold mb-6 text-center">Team Structure</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <i class="fas fa-network-wired fa-4x text-hydro-blue mb-4"></i>
+                    <h4 class="font-bold">Blockchain</h4>
+                    <p class="text-gray-600">Experts building decentralized ledgers and smart contracts.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <i class="fas fa-brain fa-4x text-hydro-blue mb-4"></i>
+                    <h4 class="font-bold">AI/ML</h4>
+                    <p class="text-gray-600">Data scientists and engineers crafting intelligent models.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <i class="fas fa-chart-line fa-4x text-hydro-blue mb-4"></i>
+                    <h4 class="font-bold">Data Science</h4>
+                    <p class="text-gray-600">Analysts turning data into strategic insights.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <i class="fas fa-shield-alt fa-4x text-hydro-blue mb-4"></i>
+                    <h4 class="font-bold">Security</h4>
+                    <p class="text-gray-600">Guardians ensuring platform safety and compliance.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <i class="fas fa-bullhorn fa-4x text-hydro-blue mb-4"></i>
+                    <h4 class="font-bold">Marketing</h4>
+                    <p class="text-gray-600">Creative minds driving brand awareness and growth.</p>
+                </div>
+            </div>
+        </div>
+        <div class="mt-12 text-center">
+            <p class="text-lg">Contact us at: <a href="mailto:careers@hydrobank.com" class="text-hydro-blue font-semibold">careers@hydrobank.com</a></p>
+            <div class="flex justify-center space-x-6 mt-4">
+                <a href="#" class="text-gray-600 text-2xl hover:text-hydro-blue"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-gray-600 text-2xl hover:text-hydro-blue"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section p-8 max-w-3xl mx-auto fade-in">
+        <h2 class="text-hydro-blue font-bold text-4xl mb-8 text-center">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+            <div class="border-b border-gray-300">
+                <button class="faq-question w-full text-left py-4 pr-4 flex justify-between items-center" onclick="toggleFAQ(this)">
+                    <span>How to apply?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="answer px-4 pb-4 hidden">
+                    Visit the Careers page, fill out the application form with your details, upload your resume, and submit. We review all applications carefully.
+                </div>
+            </div>
+            <div class="border-b border-gray-300">
+                <button class="faq-question w-full text-left py-4 pr-4 flex justify-between items-center" onclick="toggleFAQ(this)">
+                    <span>Do you offer remote roles?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="answer px-4 pb-4 hidden">
+                    Yes, Hydro Bank supports remote work for many positions, especially in tech and marketing teams.
+                </div>
+            </div>
+            <div class="border-b border-gray-300">
+                <button class="faq-question w-full text-left py-4 pr-4 flex justify-between items-center" onclick="toggleFAQ(this)">
+                    <span>What is NDA?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="answer px-4 pb-4 hidden">
+                    NDA stands for Non-Disclosure Agreement, a legal contract to protect confidential information shared during the hiring process.
+                </div>
+            </div>
+            <div class="border-b border-gray-300">
+                <button class="faq-question w-full text-left py-4 pr-4 flex justify-between items-center" onclick="toggleFAQ(this)">
+                    <span>How does equity model work?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="answer px-4 pb-4 hidden">
+                    Hydro Bank offers equity options to eligible employees as part of our compensation, aligning your success with the company’s growth.
+                </div>
+            </div>
+            <div class="border-b border-gray-300">
+                <button class="faq-question w-full text-left py-4 pr-4 flex justify-between items-center" onclick="toggleFAQ(this)">
+                    <span>How soon will I get a response?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="answer px-4 pb-4 hidden">
+                    We aim to respond within 2 weeks after application submission. If shortlisted, you will be contacted for next steps.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Careers Section -->
+    <section id="careers" class="section p-8 max-w-2xl mx-auto">
+        <h2 class="text-hydro-blue font-bold text-4xl mb-8 text-center">Apply for the Future</h2>
+        <form id="applicationForm" class="bg-white rounded-lg shadow-xl p-8 space-y-6 fade-in">
+            <div>
+                <label class="block font-semibold mb-2">Full Name</label>
+                <input type="text" name="name" class="w-full p-3 border border-gray-300 rounded-lg focus:border-hydro-blue" required>
+            </div>
+            <div>
+                <label class="block font-semibold mb-2">Email</label>
+                <input type="email" name="email" class="w-full p-3 border border-gray-300 rounded-lg focus:border-hydro-blue" required>
+            </div>
+            <div>
+                <label class="block font-semibold mb-2">WhatsApp</label>
+                <input type="tel" name="whatsapp" class="w-full p-3 border border-gray-300 rounded-lg focus:border-hydro-blue" required>
+            </div>
+            <div>
+                <label class="block font-semibold mb-2">Role</label>
+                <select name="role" class="w-full p-3 border border-gray-300 rounded-lg focus:border-hydro-blue" required>
+                    <option>Select Role</option>
+                    <option>Frontend Developer</option>
+                    <option>Backend Developer</option>
+                    <option>Blockchain Engineer</option>
+                    <option>Solidity Developer</option>
+                    <option>AI/ML Engineer</option>
+                    <option>Data Scientist</option>
+                    <option>Data Analyst</option>
+                    <option>HR Manager</option>
+                    <option>Marketing Specialist</option>
+                </select>
+            </div>
+            <div>
+                <label class="block font-semibold mb-2">Skills</label>
+                <textarea name="skills" class="w-full p-3 border border-gray-300 rounded-lg focus:border-hydro-blue" rows="2" placeholder="e.g., React, Python, Solidity"></textarea>
+            </div>
+            <div>
+                <label class="block font-semibold mb-2">Portfolio/GitHub</label>
+                <input type="url" name="portfolio" class="w-full p-3 border border-gray-300 rounded-lg focus:border-hydro-blue">
+            </div>
+            <div>
+                <label class="block font-semibold mb-2">Resume Upload</label>
+                <div id="dragDropArea" class="drag-drop border-2 border-dashed border-gray-400 rounded-lg p-6 text-center cursor-pointer">
+                    <p class="text-gray-500">Drag and drop your resume here or click to select</p>
+                    <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" class="hidden">
+                </div>
+                <div id="fileName" class="mt-2 text-hydro-blue font-semibold hidden"></div>
+            </div>
+            <div>
+                <label class="block font-semibold mb-2">Short Message</label>
+                <textarea name="message" class="w-full p-3 border border-gray-300 rounded-lg focus:border-hydro-blue" rows="3" placeholder="Tell us why you're interested..."></textarea>
+            </div>
+            <div class="flex items-center">
+                <input type="checkbox" name="nda" id="nda" class="mr-2" required>
+                <label for="nda" class="font-semibold">I agree to the NDA</label>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="gradient-btn py-3 px-8 rounded-full font-bold">Submit Application</button>
+            </div>
+        </form>
+        <div id="successMessage" class="hidden mt-8 p-4 bg-green-100 text-green-800 rounded-lg text-center">
+            Application submitted successfully! We'll get back to you soon.
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 p-6 mt-12">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="text-hydro-blue font-bold">Hydro Bank © 2024</div>
+            <div><a href="mailto:careers@hydrobank.com" class="text-hydro-blue font-semibold">hydrobank72@gmail.com</a></div>
+            <div class="flex space-x-4 text-2xl">
+                <a href="#" class="text-gray-600 hover:text-hydro-blue"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-gray-600 hover:text-hydro-blue"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Navigation Function
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            // Update active nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('text-hydro-blue', 'border-b-2', 'border-hydro-blue');
+            });
+            const activeLink = document.querySelector(`[data-section="${sectionId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('text-hydro-blue', 'border-b-2');
+            }
+        }
+
+        // Nav Click Events
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const section = e.target.getAttribute('data-section');
+                showSection(section);
+            });
+        });
+
+        // FAQ Accordion
+        function toggleFAQ(button) {
+            const answer = button.nextElementSibling;
+            answer.classList.toggle('hidden');
+            const icon = button.querySelector('i');
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
+        }
+
+        // Drag and Drop
+        const dropArea = document.getElementById('dragDropArea');
+        const fileInput = document.getElementById('resume');
+        const fileNameDiv = document.getElementById('fileName');
+
+        dropArea.addEventListener('click', () => fileInput.click());
+
+        dropArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropArea.classList.add('drag-over');
+        });
+
+        dropArea.addEventListener('dragleave', () => {
+            dropArea.classList.remove('drag-over');
+        });
+
+        dropArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropArea.classList.remove('drag-over');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                fileNameDiv.textContent = files[0].name;
+                fileNameDiv.classList.remove('hidden');
+            }
+        });
+
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                fileNameDiv.textContent = fileInput.files[0].name;
+                fileNameDiv.classList.remove('hidden');
+            }
+        });
+
+        // Form Submission
+        document.getElementById('applicationForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Simple validation
+            const formData = new FormData(e.target);
+            if (validateForm(formData)) {
+                // Show success message
+                const successMsg = document.getElementById('successMessage');
+                successMsg.classList.remove('hidden');
+                // Optional: Send to backend (simulate)
+                console.log('Form submitted:', Object.fromEntries(formData));
+                // Reset form
+                e.target.reset();
+                fileNameDiv.classList.add('hidden');
+            }
+        });
+
+        function validateForm(formData) {
+            // Basic validation
+            if (!formData.get('name') || !formData.get('email') || !formData.get('whatsapp')) {
+                alert('Please fill in all required fields.');
+                return false;
+            }
+            if (!formData.get('nda')) {
+                alert('You must agree to the NDA.');
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
+</content>
+</create_file>
+
+

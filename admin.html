@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hydro Bank Admin Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --hydro-blue: #00d4ff;
+      --gold: #f5b700;
+      --red-delete: #ef4444;
+      --dark-gray: #222222;
+      --soft-pink: #fff5f7;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--dark-gray);
+      background-color: var(--soft-pink);
+    }
+    /* Card hover lift */
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow:
+        0 10px 15px -3px rgb(0 0 0 / 0.1),
+        0 4px 6px -2px rgb(0 0 0 / 0.05);
+    }
+    /* Buttons gradient */
+    .btn-blue {
+      background-image: linear-gradient(90deg, var(--hydro-blue), var(--gold));
+      box-shadow: 0 0 6px var(--gold);
+      transition: box-shadow 0.3s ease;
+    }
+    .btn-blue:hover {
+      box-shadow: 0 0 12px 3px var(--gold);
+    }
+    /* Red button hover */
+    .btn-red:hover {
+      background-color: #dc2626; /* Tailwind red-700 */
+    }
+    /* Mini-box border and spacing */
+    .mini-box {
+      border: 1px solid #e5e7eb; /* Tailwind gray-200 */
+      border-radius: 0.5rem; /* rounded-lg */
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background-color: white;
+    }
+    /* Message box slightly shaded */
+    .message-box {
+      background-color: #fef2f2; /* very light red/pink shade */
+      border-color: #fbcaca; /* light red border */
+    }
+    /* Icon size and color */
+    .icon {
+      flex-shrink: 0;
+      width: 1.25rem;
+      height: 1.25rem;
+      color: var(--hydro-blue);
+    }
+    /* Name box distinct style */
+    .name-box {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--hydro-blue);
+      border-color: var(--hydro-blue);
+      background-color: white;
+      justify-content: center;
+    }
+    /* Buttons container */
+    .btn-container {
+      display: flex;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+    /* Buttons equal width */
+    .btn {
+      flex: 1;
+      font-weight: 600;
+      padding: 0.5rem 0;
+      border-radius: 0.5rem;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+      text-align: center;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="fixed top-0 inset-x-0 z-50 p-4">
+          {% for category, message in messages %}
+            <div class="mx-auto max-w-sm rounded-lg p-4 text-center font-semibold {% if category == 'error' %}bg-red-500 text-white{% else %}bg-green-500 text-white{% endif %}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+       
+</body>
+
+  <!-- Navbar -->
+  <nav class="flex justify-between items-center px-6 py-4 bg-white shadow-md sticky top-0 z-30 font-poppins select-none">
+    <div class="flex items-center gap-2 text-[var(--hydro-blue)] font-bold text-xl">
+      <span class="text-2xl">⚡</span>
+      <span>Hydro Bank Admin Panel</span>
+    </div>
+    <button
+      type="button"
+      class="btn-red bg-[var(--red-delete)] px-4 py-2 rounded-md text-white font-semibold hover:bg-red-600 transition"
+      aria-label="Logout"
+    >
+      Logout
+    </button>
+  </nav>
+
+  <!-- Main Section -->
+  <main class="flex-grow p-6 max-w-7xl mx-auto">
+    <section
+      aria-label="Applicants Grid"
+      class="grid gap-6
+             grid-cols-1
+             sm:grid-cols-2
+             lg:grid-cols-3"
+    >
+      <!-- Applicant Card -->
+      <article
+        class="bg-white rounded-xl shadow-md card-hover p-6 flex flex-col"
+        role="region"
+        aria-labelledby="applicant-1-name"
+      >
+        <!-- Name -->
+        <div class="mini-box name-box mb-6 justify-center" id="applicant-1-name">
+          Jane Doe
+        </div>
+
+        <!-- WhatsApp -->
+        <div class="mini-box" title="WhatsApp Number">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true" role="img" aria-label="Phone icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h1.586a1 1 0 01.707.293l1.414 1.414A1 1 0 009 5h6a2 2 0 012 2v10a2 2 0 01-2 2H7a2 2 0 01-2-2v-1" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01" />
+          </svg>
+          <span>+1 234 567 8901</span>
+        </div>
+
+        <!-- Email -->
+        <div class="mini-box" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true" role="img" aria-label="Mail icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16 12l-4-4-4 4m0 0l4 4 4-4m-4-4v8" />
+          </svg>
+          <span>jane.doe@example.com</span>
+        </div>
+
+        <!-- Role -->
+        <div class="mini-box" title="Role">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true" role="img" aria-label="Briefcase icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 7v4m0 0v4m0-4h4m-4 0H8m4-4a4 4 0 100 8 4 4 0 000-8z" />
+          </svg>
+          <span>Frontend Developer</span>
+        </div>
+
+        <!-- Skills -->
+        <div class="mini-box" title="Skills">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true" role="img" aria-label="Tag icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h10M7 12h10M7 17h10" />
+          </svg>
+          <span>React, Tailwind, JavaScript</span>
+        </div>
+
+        <!-- Portfolio -->
+        <a href="https://portfolio.example.com/janedoe" target="_blank" rel="noopener noreferrer" class="mini-box text-[var(--hydro-blue)] hover:underline" title="Portfolio link">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true" role="img" aria-label="Link icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 010 5.656l-3.536 3.536a4 4 0 01-5.656-5.656l1.414-1.414" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.172 13.828a4 4 0 010-5.656l3.536-3.536a4 4 0 015.656 5.656l-1.414 1.414" />
+          </svg>
+          <span class="truncate">portfolio.example.com/janedoe</span>
+        </a>
+
+        <!-- Message -->
+        <div class="mini-box message-box" title="Message from applicant">
+          Passionate about building scalable web apps and intuitive user experiences.
+        </div>
+
+        <!-- Buttons -->
+        <div class="mini-box flex justify-between items-center pt-4 border-t border-gray-200 mt-auto">
+          <button
+            type="button"
+            class="btn btn-blue"
+            aria-label="Download Resume for Jane Doe"
+          >
+            Download Resume
+          </button>
+          <button
+            type="button"
+            class="btn btn-red"
+            aria-label="Delete Jane Doe"
+          >
+            Delete
+          </button>
+        </div>
+      </article>
+
+      <!-- Applicant Card 2 -->
+      <article
+        class="bg-white rounded-xl shadow-md card-hover p-6 flex flex-col"
+        role="region"
+        aria-labelledby="applicant-2-name"
+      >
+        <div class="mini-box name-box mb-6 justify-center" id="applicant-2-name">
+          John Smith
+        </div>
+
+        <div class="mini-box" title="WhatsApp Number">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true" role="img" aria-label="Phone icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h1.586a1 1 0 01.707.293l1.414 1.414A1 1 0 009 5h6a2 2 0 012 2v10a2 2 0 01-2 2H7a2 2 0 01-2-2v-1" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01" />
+          </svg>
+          <span>+44 7700 900123</span>
+        </div>
+
+        <div class="mini-box" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true" role="img" aria-label="Mail icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16 12l-4-4-4 4m0 0l4 4 4-4m-4-4v8" />
+          </svg>
+          <span>john.smith@example.com</span>
+        </div>
+
+        <div class="mini-box" title="Role">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true" role="img" aria-label="Briefcase icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 7v4m0 0v4m0-4h4m-4 0H8m4-4a4 4 0 100 8 4 4 0 000-8z" />
+          </svg>
+          <span>Backend Engineer</span>
+        </div>
+
+        <div class="mini-box" title="Skills">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true" role="img" aria-label="Tag icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h10M7 12h10M7 17h10" />
+          </svg>
+          <span>Node.js, Express, MongoDB</span>
+        </div>
+
+        <a href="https://johnsmith.dev" target="_blank" rel="noopener noreferrer" class="mini-box text-[var(--hydro-blue)] hover:underline" title="Portfolio link">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true" role="img" aria-label="Link icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 010 5.656l-3.536 3.536a4 4 0 01-5.656-5.656l1.414-1.414" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.172 13.828a4 4 0 010-5.656l3.536-3.536a4 4 0 015.656 5.656l-1.414 1.414" />
+          </svg>
+          <span class="truncate">johnsmith.dev</span>
+        </a>
+
+        <div class="mini-box message-box" title="Message from applicant">
+          Experienced backend developer focused on scalable APIs and microservices.
+        </div>
+
+        <div class="mini-box flex justify-between items-center pt-4 border-t border-gray-200 mt-auto">
+          <button
+            type="button"
+            class="btn btn-blue"
+            aria-label="Download Resume for John Smith"
+          >
+            Download Resume
+          </button>
+          <button
+            type="button"
+            class="btn btn-red"
+            aria-label="Delete John Smith"
+          >
+            Delete
+          </button>
+        </div>
+      </article>
+
+      <!-- Add more applicant cards as needed -->
+    </section>
+  </main>
+</body>
+</html>
+
+
